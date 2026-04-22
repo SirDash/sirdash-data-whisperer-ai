@@ -101,7 +101,6 @@ const AdminUpdates = () => {
                 className="flex flex-col sm:flex-row sm:items-stretch gap-3 sm:gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-3 sm:p-4 group"
               >
                 <div className="flex flex-1 min-w-0 gap-3 sm:gap-4">
-                  {/* Icon indicator */}
                   <div className="flex-shrink-0 mt-0.5">
                     <div className="h-9 w-9 rounded-lg bg-sirdash-50 dark:bg-sirdash-900/30 flex items-center justify-center border border-sirdash-100 dark:border-sirdash-800">
                       {IconComp ? (
@@ -114,7 +113,6 @@ const AdminUpdates = () => {
                     </div>
                   </div>
 
-                  {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div className="min-w-0 pr-1">
@@ -123,16 +121,13 @@ const AdminUpdates = () => {
                         </p>
                         <p className="text-xs text-gray-400 mt-0.5">{u.date}</p>
                       </div>
-                      {/* Always visible on touch; hover-only on sm+ */}
                       <div className="flex items-center gap-0.5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:transition-opacity flex-shrink-0 -mr-1 sm:mr-0">
                         <Button
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8 sm:h-7 sm:w-7 text-gray-500 hover:text-sirdash-500"
                           onClick={() =>
-                            navigate(
-                              `/admin/dashboard/updates/edit/${u.id}`
-                            )
+                            navigate(`/admin/dashboard/updates/edit/${u.id}`)
                           }
                         >
                           <Pencil className="h-3.5 w-3.5" />

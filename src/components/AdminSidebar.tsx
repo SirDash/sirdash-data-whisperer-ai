@@ -13,7 +13,7 @@ export const AdminSidebar = () => {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     toast({ title: "Signed out" });
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   return (

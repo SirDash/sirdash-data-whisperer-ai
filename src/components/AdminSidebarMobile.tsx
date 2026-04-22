@@ -22,7 +22,7 @@ export const AdminSidebarMobile = () => {
     setMobileOpen(false);
     await supabase.auth.signOut();
     toast({ title: "Signed out" });
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   return (
