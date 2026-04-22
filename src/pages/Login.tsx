@@ -13,11 +13,11 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Mail, PlayCircle } from "lucide-react";
+import { ArrowLeft, LogIn, Mail } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/components/ui/use-toast";
-import { signInWithGoogle } from "@/lib/authUtils";
+import { signInWithGoogle, isAdmin } from "@/lib/authUtils";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -45,7 +45,7 @@ const Login = () => {
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
@@ -56,7 +56,7 @@ const Login = () => {
         title: "Sign-in successful",
         description: "Welcome back!",
       });
-      navigate("/coming-soon");
+      navigate(isAdmin(authData.user) ? "/admin/dashboard" : "/coming-soon");
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Invalid email or password";
@@ -109,7 +109,7 @@ const Login = () => {
               />
             </a>
             <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-white">
-              Try Our Sandbox
+              Login
             </h2>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               Don't have an account?{" "}
@@ -256,7 +256,7 @@ const Login = () => {
                       </span>
                     ) : (
                       <span className="flex items-center">
-                        <PlayCircle className="mr-2 h-4 w-4" /> Try Our Sandbox
+                        <LogIn className="mr-2 h-4 w-4" /> Login
                       </span>
                     )}
                   </Button>
