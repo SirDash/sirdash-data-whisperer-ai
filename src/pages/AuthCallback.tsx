@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { isAdmin } from "@/lib/authUtils";
 
 const AuthCallback = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const AuthCallback = () => {
           title: "Sign-in successful",
           description: "Welcome back!",
         });
-        navigate("/coming-soon", { replace: true });
+        navigate(isAdmin(session.user) ? "/admin/dashboard" : "/coming-soon", { replace: true });
         return;
       }
 

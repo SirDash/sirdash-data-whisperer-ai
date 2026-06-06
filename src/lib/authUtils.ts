@@ -119,6 +119,12 @@ export function signOutSupabase() {
   return supabase.auth.signOut();
 }
 
+export function isAdmin(user: User | null): boolean {
+  if (!user) return false;
+  const meta = user.app_metadata as Record<string, unknown> | undefined;
+  return meta?.role === "admin";
+}
+
 export function signInWithGoogle() {
   return supabase.auth.signInWithOAuth({
     provider: "google",

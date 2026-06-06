@@ -1,12 +1,13 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, PlaySquare } from "lucide-react";
+import { Menu, X, PlaySquare, LayoutDashboard } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import NavbarAuthMobile from "@/components/NavbarAuthMobile";
 import NavbarProfileDropdown from "@/components/NavbarProfileDropdown";
+import { isAdmin } from "@/lib/authUtils";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -141,13 +142,26 @@ const Navbar = () => {
                   <Link to="/login">Log in</Link>
                 </Button>
               ))}
-            <Button
-              asChild
-              className="bg-sirdash-500 hover:bg-sirdash-600"
-              size="sm"
-            >
-              <a href="#demo">Request Demo</a>
-            </Button>
+            {isAdmin(user) ? (
+              <Button
+                asChild
+                className="bg-sirdash-500 hover:bg-sirdash-600"
+                size="sm"
+              >
+                <Link to="/admin/dashboard">
+                  <LayoutDashboard className="w-4 h-4 mr-2" />
+                  Dashboard
+                </Link>
+              </Button>
+            ) : (
+              <Button
+                asChild
+                className="bg-sirdash-500 hover:bg-sirdash-600"
+                size="sm"
+              >
+                <a href="#demo">Request Demo</a>
+              </Button>
+            )}
           </div>
 
           <button
@@ -230,13 +244,26 @@ const Navbar = () => {
                     </Link>
                   </Button>
                 ))}
-              <Button
-                asChild
-                className="bg-sirdash-500 hover:bg-sirdash-600 w-full"
-                size="sm"
-              >
-                <a href="#demo">Request Demo</a>
-              </Button>
+              {isAdmin(user) ? (
+                <Button
+                  asChild
+                  className="bg-sirdash-500 hover:bg-sirdash-600 w-full"
+                  size="sm"
+                >
+                  <Link to="/admin/dashboard" onClick={toggleMobileMenu}>
+                    <LayoutDashboard className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  className="bg-sirdash-500 hover:bg-sirdash-600 w-full"
+                  size="sm"
+                >
+                  <a href="#demo">Request Demo</a>
+                </Button>
+              )}
             </div>
           </div>
         </div>
